@@ -1,0 +1,473 @@
+:root {
+    /* Global Variables for Colours */
+    --primary-dark: #0A0A0A;
+    --secondary-dark: #1A1A2E;
+    --accent-cyan: #00FFFF;
+    --accent-blue: #0066FF;
+    --warning-red: #FF3366;
+    --warning-orange: #FF6B35;
+    --text-light: #E0E0E0;
+    --text-white: #FFFFFF;
+    --panel-bg: #16213E;
+    --panel-border: #0F3460;
+    --glow-cyan: rgba(0, 255, 255, 0.3);
+    --glow-red: rgba(255, 51, 102, 0.3);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    /* Main Body Style */
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Rajdhani', sans-serif;
+    color: var(--text-light);
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Styling for Digital Rain Background */
+#matrix-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.45;
+}
+
+
+.main-container {
+    
+}
+
+/* Main Banner */
+.banner {
+    background: linear-gradient(45deg, var(--panel-bg) 0%, var(--secondary-dark) 50%, var(--primary-dark) 100%);
+    border: 2px solid var(--accent-cyan);
+    border-radius: 0 0 2em 2em;
+    padding: 2em;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 20px var(--glow-cyan);
+}
+
+.banner-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 3.5em;
+    font-weight: 900;
+    color: var(--accent-cyan);
+    text-shadow: 0 0 10px var(--glow-cyan);
+    margin: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.banner-subtitle {
+    font-size: 1.8em;
+    font-weight: 500;
+    color: var(--text-light);
+    margin-top: 1em;
+    position: relative;
+    z-index: 2;
+}
+
+.banner-tagline {
+    font-size: 1.5em;
+    color: var(--warning-red);
+    margin-top: 1em;
+    font-weight: 500;
+    position: relative;
+    z-index: 2;
+}
+
+/* Topic Panels */
+.topic-panel {
+    background: linear-gradient(135deg, var(--panel-bg) 0%, var(--secondary-dark) 100%);
+    border: 1px solid var(--panel-border);
+    border-radius: 1em;
+    padding: 1.5em;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    opacity: 0.75;
+}
+
+.topic-panel:hover {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 25px var(--glow-cyan);
+    transform: translateY(-5px);
+}
+
+.topic-panel.warning:hover {
+    border-color: var(--warning-red);
+    box-shadow: 0 0 25px var(--glow-red);
+}
+
+.topic-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+}
+
+.topic-panel.warning::before {
+    background: linear-gradient(90deg, var(--warning-red), var(--warning-orange));
+}
+
+/* Styling for Topic Window */
+.panel-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--accent-cyan);
+    margin-bottom: 1em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.75;
+}
+
+.topic-panel.warning .panel-title {
+    color: var(--warning-red);
+}
+
+/* Styling for Topic Window */
+.panel-content {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: var(--text-light);
+    font-weight: 400;
+    flex-grow: 1;
+}
+
+/* Display Topic Badge on Topic Window */
+.panel-tag {
+    display: inline-block;
+    background: linear-gradient(90deg, var(--accent-cyan) 0%, var(--accent-cyan) 40%, rgba(0, 255, 255, 0.3) 80%, transparent 100%);
+    color: var(--primary-dark);
+    padding: 0.3em 0.8em;
+    border-radius: 15px;
+    font-size: 0.9em;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--accent-cyan);
+    box-shadow: 0 0 15px var(--glow-cyan), inset 0 0 15px rgba(0, 255, 255, 0.2);
+}
+
+/* Update Panel Tag to Play Scan Effect */
+.panel-tag::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%);
+    animation: scanning 2s ease-in-out infinite;
+}
+
+/* Scanning Effect on Topic Badges */
+@keyframes scanning {
+    0% { left: -100%; }
+    50% { left: 100%; }
+    100% { left: 100%; }
+}
+
+/* Red Gradient for Topics */
+.topic-panel.warning .panel-tag {
+    background: linear-gradient(90deg, var(--warning-red) 0%, var(--warning-red) 40%, rgba(255, 51, 102, 0.3) 80%, transparent 100%);
+    color: var(--text-white);
+    border: 1px solid var(--warning-red);
+    box-shadow: 0 0 15px var(--glow-red), inset 0 0 15px rgba(255, 51, 102, 0.2);
+}
+
+/* Implications Section */
+.implications-title {
+    background: linear-gradient(45deg, var(--panel-bg), var(--secondary-dark));
+    border: 2px solid var(--accent-cyan);
+    border-radius: 1em;
+    padding: 1em;
+    text-align: center;
+    font-family: 'Orbitron', monospace;
+    font-size: 2.5em;
+    font-weight: 700;
+    color: var(--accent-cyan);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+    opacity: 0.75;
+    z-index: 1;
+}
+
+/* SVG heartbeat wave */
+.implications-title::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    transform: translateY(-50%);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60' preserveAspectRatio='none'%3E%3Cpath d='M0,30 L20,30 L22,15 L24,45 L26,20 L28,40 L30,30 L40,30 L42,25 L44,35 L46,30 L55,30 L57,10 L59,50 L61,15 L63,45 L65,30 L75,30 L77,20 L79,40 L81,30 L90,30 L92,5 L94,55 L96,10 L98,50 L100,30 L110,30 L112,25 L114,35 L116,30 L125,30 L127,15 L129,45 L131,20 L133,40 L135,30 L145,30 L147,10 L149,50 L151,30 L160,30 L162,20 L164,40 L166,25 L168,35 L170,30 L180,30 L182,5 L184,55 L186,30 L200,30' stroke='%2300FFFF' stroke-width='2' fill='none' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+    background-size: 600px 60px;
+    background-repeat: repeat-x;
+    opacity: 0.4;
+    filter: blur(1px) drop-shadow(0 0 8px var(--glow-cyan));
+    animation: heartbeat-flow 3s linear infinite;
+    z-index: -1;
+}
+
+@keyframes heartbeat-flow {
+    0% {
+        background-position: 600px 0;
+    }
+    100% {
+        background-position: 0px 0;
+    }
+}
+
+/* Image Containers */
+.image-container {
+    background: linear-gradient(135deg, var(--panel-bg) 0%, var(--secondary-dark) 100%);
+    border: 1px solid var(--panel-border);
+    border-radius: 0.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 12em;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    opacity: 0.75;
+}
+/* Ensure image fits within the image container */
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.5em;
+}
+/* Blue Highlight when Not Clicked*/
+.image-container:hover {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 20px var(--glow-cyan);
+    transform: translateY(-3px);
+}
+
+.image-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+}
+
+/* When text overlay is active, container glows red */
+.image-container:has(.text-overlay.active) {
+    border-color: var(--warning-red) !important;
+    box-shadow: 0 0 25px var(--glow-red) !important;
+}
+
+.text-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    border-radius: 0.5em;
+    z-index: 10;
+}
+
+.text-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.research-text {
+    color: var(--text-white);
+    font-size: 1.1em;
+    text-align: center;
+    padding: 1.5em;
+    line-height: 1.6;
+    font-weight: 500;
+    max-width: 90%;
+    text-shadow: 0 0 10px var(--glow-cyan);
+}
+
+/* Mobile Layout (default) */
+.main-container {
+    max-width: 75em;
+    width: 100%;
+    padding: 0 1em;
+    padding-bottom: 20vh;
+    display: grid;
+    gap: 1.5em;
+    grid-template-areas:
+        "banner"
+        "."
+        "panel1"
+        "."
+        "panel2"
+        "."
+        "panel3"
+        "."
+        "panel4"
+        "."
+        "research-title"
+        "."
+        "img1"
+        "img2"
+        "img3"
+        "img4"
+        "img5"
+        "img6";
+    grid-template-rows: 
+        minmax(12em, auto)
+        2em
+        minmax(10em, auto)
+        1em
+        minmax(10em, auto)
+        1em
+        minmax(10em, auto)
+        1em
+        minmax(10em, auto)
+        2em
+        minmax(6em, auto)
+        1em
+        minmax(8em, auto)
+        minmax(8em, auto)
+        minmax(8em, auto)
+        minmax(8em, auto)
+        minmax(8em, auto)
+        minmax(8em, auto);
+}
+
+/* Tablet Layout */
+@media (min-width: 50em) {
+    .banner-title {
+        font-size: 4em;
+    }
+
+    .main-container {
+        grid-template-areas:
+            "banner banner banner banner"
+            ". . . ."
+            "panel1 panel1 panel2 panel2"
+            ". . . ."
+            "panel3 panel3 panel4 panel4"
+            ". . . ."
+            "research-title research-title research-title research-title"
+            ". . . ."
+            "img1 img1 img2 img2"
+            ". . . ."
+            "img3 img3 img4 img4"
+            ". . . ."
+            "img5 img5 img6 img6";
+        grid-template-rows:
+            minmax(15em, auto)
+            2em
+            minmax(12em, auto)
+            1.5em
+            minmax(12em, auto)
+            2em
+            minmax(8em, auto)
+            1.5em
+            minmax(12em, auto)
+            1em
+            minmax(12em, auto)
+            1em
+            minmax(12em, auto);
+    }
+}
+
+/* Desktop Layout */
+@media (min-width: 75em) {
+    .banner-title {
+        font-size: 4.5em;
+    }
+
+    .main-container {
+        grid-template-areas:
+            "banner banner banner banner banner banner"
+            ". . . . . ."
+            "panel1 panel1 panel2 panel2 panel3 panel3"
+            ". . . . . ."
+            "panel4 panel4 panel4 panel4 panel4 panel4"
+            ". . . . . ."
+            "research-title research-title research-title research-title research-title research-title"
+            ". . . . . ."
+            "img1 img1 img2 img2 img3 img3"
+            ". . . . . ."
+            "img4 img4 img5 img5 img6 img6";
+        grid-template-rows:
+            minmax(18em, auto)
+            3em
+            minmax(15em, auto)
+            2em
+            minmax(15em, auto)
+            3em
+            minmax(8em, auto)
+            2em
+            minmax(12em, auto)
+            1.5em
+            minmax(12em, auto);
+    }
+}
+
+/* Grid Area Assignments */
+#banner { grid-area: banner; }
+#panel1 { grid-area: panel1; }
+#panel2 { grid-area: panel2; }
+#panel3 { grid-area: panel3; }
+#panel4 { grid-area: panel4; }
+#researchTitle { grid-area: research-title; }
+#img1 { grid-area: img1; }
+#img2 { grid-area: img2; }
+#img3 { grid-area: img3; }
+#img4 { grid-area: img4; }
+#img5 { grid-area: img5; }
+#img6 { grid-area: img6; }
+
+/* Accessibility Options */
+@media (prefers-reduced-motion: reduce) {
+    .topic-panel,
+    .image-container {
+        animation: none;
+        transition: none;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .implications-title::after {
+        animation: none;
+    }
+}
